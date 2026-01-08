@@ -1,17 +1,39 @@
 function talkToAIVA() {
-  let input = document.getElementById("userInput").value;
-  let chat = document.getElementById("chat");
+  const inputBox = document.getElementById("userInput");
+  const chat = document.getElementById("chat");
 
-  if (input === "") return;
+  let userText = inputBox.value.trim();
+  if (userText === "") return;
 
-  chat.innerHTML += "<p><b>You:</b> " + input + "</p>";
+  // Show user message
+  chat.innerHTML += `<p><b>You:</b> ${userText}</p>`;
 
-  let reply = "I am AIVA. I am learning to build the future with Archit & Ansh.";
+  let reply = "";
 
-  if (input.toLowerCase().includes("hello")) {
-    reply = "Hello Archit 👋 I’m AIVA. Ready to create something legendary?";
+  let text = userText.toLowerCase();
+
+  // ---- AIVA NATURE LOGIC ----
+  if (text.includes("hello") || text.includes("hi")) {
+    reply = "Hello Archit 👋 I’m AIVA. Tell me—work mode or chill mode?";
+  }
+  else if (text.includes("work") || text.includes("project") || text.includes("code")) {
+    reply = "Work mode ON 🧠💻. Focus clear rakho. Batao kya build karna hai?";
+  }
+  else if (text.includes("joke") || text.includes("fun")) {
+    reply = "😄 Thoda fun theek hai, par limits ke andar. Balance hi power hai.";
+  }
+  else if (text.includes("who are you")) {
+    reply = "I’m AIVA — an AI built by Archit & Ansh. My job is to guide, not distract.";
+  }
+  else {
+    reply = "I’m listening. Clear bolo, phir hum solution banayenge.";
   }
 
-  chat.innerHTML += "<p><b>AIVA:</b> " + reply + "</p>";
-  document.getElementById("userInput").value = "";
-                                   }
+  // Show AIVA reply
+  setTimeout(() => {
+    chat.innerHTML += `<p><b>AIVA:</b> ${reply}</p>`;
+    chat.scrollTop = chat.scrollHeight;
+  }, 400);
+
+  inputBox.value = "";
+}
