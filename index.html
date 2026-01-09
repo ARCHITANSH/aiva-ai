@@ -4,139 +4,161 @@
 <meta charset="UTF-8">
 <title>AIVA AI</title>
 <style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:radial-gradient(circle at top, #0f2027, #000);
-  color:white;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #0f2027, #000);
+  color: white;
+  height: 100vh;
 }
 
-/* HOME */
-#home{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-}
-h1{
-  color:#00ffe1;
-  font-size:42px;
-  text-shadow:0 0 15px #00ffe1;
-}
-button{
-  margin-top:20px;
-  padding:14px 30px;
-  font-size:16px;
-  border:none;
-  border-radius:30px;
-  background:#00ffe1;
-  cursor:pointer;
-  box-shadow:0 0 20px #00ffe1;
+/* ---------- LANDING ---------- */
+#landing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
 }
 
-/* CHAT */
-#chat{
-  display:none;
-  height:100vh;
-  flex-direction:column;
+#landing h1 {
+  font-size: 48px;
+  color: #00ffe1;
+  text-shadow: 0 0 15px #00ffe1;
 }
-#chatHeader{
-  padding:15px;
-  text-align:center;
-  background:#000;
-  box-shadow:0 0 10px #00ffe1;
+
+#landing p {
+  opacity: 0.8;
 }
-#chatBox{
-  flex:1;
-  padding:15px;
-  overflow-y:auto;
+
+#startBtn {
+  margin-top: 30px;
+  padding: 15px 40px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #00ffe1, #00b3ff);
+  color: black;
+  cursor: pointer;
+  box-shadow: 0 0 20px #00ffe1;
 }
-.msg{
-  max-width:70%;
-  padding:10px 14px;
-  margin:10px 0;
-  border-radius:15px;
+
+/* ---------- CHAT ---------- */
+#chat {
+  display: none;
+  flex-direction: column;
+  height: 100vh;
 }
-.user{
-  background:#00ffe1;
-  color:black;
-  margin-left:auto;
+
+#chatHeader {
+  padding: 15px;
+  text-align: center;
+  background: rgba(0,0,0,0.6);
+  border-bottom: 1px solid #00ffe1;
 }
-.ai{
-  background:#111;
-  border:1px solid #00ffe1;
+
+#messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
 }
-#inputArea{
-  display:flex;
-  padding:10px;
-  background:#000;
+
+.msg {
+  max-width: 70%;
+  padding: 10px 15px;
+  margin: 10px 0;
+  border-radius: 15px;
 }
-input{
-  flex:1;
-  padding:10px;
-  border-radius:20px;
-  border:none;
-  outline:none;
+
+.user {
+  background: #00b3ff;
+  color: black;
+  margin-left: auto;
 }
-#send{
-  margin-left:10px;
-  padding:10px 20px;
-  border:none;
-  border-radius:20px;
-  background:#00ffe1;
+
+.ai {
+  background: #111;
+  border: 1px solid #00ffe1;
+}
+
+#inputArea {
+  display: flex;
+  padding: 10px;
+  background: rgba(0,0,0,0.8);
+}
+
+#inputArea input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+}
+
+#inputArea button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background: #00ffe1;
+  cursor: pointer;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HOME -->
-<div id="home">
+<!-- LANDING SCREEN -->
+<div id="landing">
   <h1>AIVA AI 🤖</h1>
-  <p>Next-generation Artificial Intelligence<br>Built by Archit & Ansh</p>
-  <button onclick="openChat()">Talk to AIVA AI</button>
+  <p>Next-generation Artificial Intelligence</p>
+  <p>Built by Archit & Ansh</p>
+  <button id="startBtn">Talk to AIVA</button>
 </div>
 
-<!-- CHAT -->
+<!-- CHAT SCREEN -->
 <div id="chat">
-  <div id="chatHeader">AIVA AI 🤖</div>
-  <div id="chatBox">
-    <div class="msg ai">Hello Archit 👋 I am AIVA AI.</div>
-  </div>
+  <div id="chatHeader">AIVA AI – Chat</div>
+  <div id="messages"></div>
   <div id="inputArea">
-    <input id="text" placeholder="Type your message...">
-    <button id="send" onclick="sendMsg()">Send</button>
+    <input id="userInput" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
   </div>
 </div>
 
 <script>
-function openChat(){
-  document.getElementById("home").style.display="none";
-  document.getElementById("chat").style.display="flex";
+const landing = document.getElementById("landing");
+const chat = document.getElementById("chat");
+const startBtn = document.getElementById("startBtn");
+const messages = document.getElementById("messages");
+const userInput = document.getElementById("userInput");
+
+startBtn.onclick = () => {
+  landing.style.display = "none";
+  chat.style.display = "flex";
+};
+
+function sendMessage() {
+  const text = userInput.value.trim();
+  if (!text) return;
+
+  addMessage(text, "user");
+  userInput.value = "";
+
+  setTimeout(() => {
+    addMessage("Hello 👋 I am AIVA AI 🤖. I am under development.", "ai");
+  }, 500);
 }
 
-function sendMsg(){
-  let input=document.getElementById("text");
-  if(input.value==="") return;
-
-  let userMsg=document.createElement("div");
-  userMsg.className="msg user";
-  userMsg.innerText=input.value;
-  chatBox.appendChild(userMsg);
-
-  setTimeout(()=>{
-    let aiMsg=document.createElement("div");
-    aiMsg.className="msg ai";
-    aiMsg.innerText="I am learning 🚀 This is demo reply.";
-    chatBox.appendChild(aiMsg);
-    chatBox.scrollTop=chatBox.scrollHeight;
-  },700);
-
-  input.value="";
+function addMessage(text, type) {
+  const div = document.createElement("div");
+  div.className = "msg " + type;
+  div.innerText = text;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
 }
 </script>
 
 </body>
-  </html>
+</html>
