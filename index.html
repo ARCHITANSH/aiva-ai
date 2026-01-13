@@ -22,13 +22,21 @@ body{
   align-items:center;
   text-align:center;
 }
-#landing h1{
-  font-size:2.5rem;
+
+#om{
+  font-size:60px;
   color:#00bfff;
 }
+
+#landing h1{
+  margin:10px 0;
+  font-size:2.6rem;
+  color:#ffffff;
+}
+
 #startBtn{
-  margin-top:20px;
-  padding:14px 28px;
+  margin-top:25px;
+  padding:14px 30px;
   font-size:16px;
   border:none;
   border-radius:30px;
@@ -36,7 +44,9 @@ body{
   color:black;
   cursor:pointer;
 }
-#startBtn:hover{background:#1ad1ff}
+#startBtn:hover{
+  background:#1ad1ff;
+}
 
 /* Chat */
 #chatApp{
@@ -45,17 +55,21 @@ body{
   display:flex;
   flex-direction:column;
 }
+
 header{
   padding:15px;
   text-align:center;
   background:#000;
   border-bottom:1px solid #111;
+  font-weight:bold;
 }
+
 #chat{
   flex:1;
   padding:15px;
   overflow-y:auto;
 }
+
 .msg{
   max-width:75%;
   margin:10px 0;
@@ -63,25 +77,31 @@ header{
   border-radius:18px;
   line-height:1.4;
 }
+
 .user{
   background:#00bfff;
   color:black;
   margin-left:auto;
 }
+
 .ai{
   background:#111;
   border:1px solid #1f1f1f;
 }
+
 #typing{
   font-size:12px;
   color:#888;
   display:none;
+  margin-left:10px;
 }
+
 #inputBox{
   display:flex;
   padding:10px;
   background:#000;
 }
+
 #inputBox input{
   flex:1;
   padding:12px;
@@ -91,6 +111,7 @@ header{
   background:#111;
   color:white;
 }
+
 #inputBox button{
   margin-left:10px;
   padding:12px 20px;
@@ -107,8 +128,8 @@ header{
 
 <!-- LANDING -->
 <div id="landing">
-  <h1>AIVA AI 🤖</h1>
-  <p>Built by Archit & Ansh</p>
+  <div id="om">ॐ</div>
+  <h1>AIVA AI</h1>
   <button id="startBtn">Talk to AIVA</button>
 </div>
 
@@ -124,21 +145,21 @@ header{
 </div>
 
 <script>
-const startBtn=document.getElementById("startBtn");
-const landing=document.getElementById("landing");
-const chatApp=document.getElementById("chatApp");
-const chat=document.getElementById("chat");
-const typing=document.getElementById("typing");
-const input=document.getElementById("userInput");
+const startBtn = document.getElementById("startBtn");
+const landing = document.getElementById("landing");
+const chatApp = document.getElementById("chatApp");
+const chat = document.getElementById("chat");
+const typing = document.getElementById("typing");
+const input = document.getElementById("userInput");
 
-startBtn.onclick=()=>{
-  landing.style.display="none";
-  chatApp.style.display="flex";
-  aiMsg("Hello Archit 👋 I am AIVA. How can I help you today?");
+startBtn.onclick = () => {
+  landing.style.display = "none";
+  chatApp.style.display = "flex";
+  aiMsg("Hello everybody, how can I help you?");
 };
 
 function sendMsg(){
-  const text=input.value.trim();
+  const text = input.value.trim();
   if(!text) return;
   addMsg(text,"user");
   input.value="";
@@ -160,21 +181,7 @@ function aiMsg(text){
 }
 
 function reply(text){
-  text=text.toLowerCase();
-  let res="I am learning. Tell me more about your idea 🚀";
-
-  if(text.includes("hello")||text.includes("hi"))
-    res="Hello 👋 I am AIVA, your AI partner.";
-
-  else if(text.includes("who are you"))
-    res="I am AIVA AI, built by Archit & Ansh to turn ideas into reality.";
-
-  else if(text.includes("project")||text.includes("app"))
-    res="Great 🔥 Tell me your idea and I will help structure it.";
-
-  else if(text.includes("website"))
-    res="Nice! I can help you plan layout, features and flow.";
-
+  let res="I am learning. Tell me your idea.";
   aiMsg(res);
 }
 </script>
